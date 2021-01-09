@@ -9,3 +9,9 @@
   </div>
 </template>
 
+<style lang="scss">
+#nav{
+  margin: 0 auto;
+  max-width: 500px;
+}
+</style>

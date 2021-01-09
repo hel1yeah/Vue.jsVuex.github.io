@@ -30,11 +30,10 @@
                 placeholder="Имя Пользователя"
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
+            <button class="btn btn-lg btn-primary pull-xs-right" :disabled="isSubmitting">
               Регистрация
             </button>
           </form>
-          <button @click="incremCounter">icrement</button>
         </div>
       </div>
     </div>
@@ -45,15 +44,23 @@
 export default {
   name: 'McvRegister',
   components: {},
+  computed: {
+    isSubmitting(){
+      return this.$store.state.auth.isSubmitting
+    }
+  },
   methods: {
     onSubmit() {
       console.log('asfdsgdfhfgdf')
+      this.$store.commit('registerStart')
     },
-    incremCounter() {
-      // eslint-disable-next-line no-undef
-      console.log('incremCounter')
-      this.$store.commit('inc');
-    },
+
   },
 }
 </script>
+
+<style lang="scss">
+.row{
+  margin: 0 15px;
+}
+</style>
