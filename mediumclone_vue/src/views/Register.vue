@@ -30,7 +30,10 @@
                 placeholder="Имя Пользователя"
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" :disabled="isSubmitting">
+            <button
+              class="btn btn-lg btn-primary pull-xs-right"
+              :disabled="isSubmitting"
+            >
               Регистрация
             </button>
           </form>
@@ -45,22 +48,27 @@ export default {
   name: 'McvRegister',
   components: {},
   computed: {
-    isSubmitting(){
+    isSubmitting() {
       return this.$store.state.auth.isSubmitting
-    }
+    },
   },
   methods: {
     onSubmit() {
-      console.log('asfdsgdfhfgdf')
-      this.$store.commit('registerStart')
+      console.log('тест метода в регистур вью ')
+      this.$store.dispatch('register', {
+        email: 'asdfassdsad@asds.com',
+        username: 'asdsasdfgth',
+        password: '1234567890',
+      }).then(user => { 
+        console.log('удачно зарегестрированный пользователь', user)
+      })
     },
-
   },
 }
 </script>
 
 <style lang="scss">
-.row{
+.row {
   margin: 0 15px;
 }
 </style>
