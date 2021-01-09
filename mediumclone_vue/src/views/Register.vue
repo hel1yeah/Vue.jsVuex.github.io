@@ -30,8 +30,11 @@
                 placeholder="Имя Пользователя"
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right"> Регистрация </button>
+            <button class="btn btn-lg btn-primary pull-xs-right">
+              Регистрация
+            </button>
           </form>
+          <button @click="incremCounter">icrement</button>
         </div>
       </div>
     </div>
@@ -43,9 +46,14 @@ export default {
   name: 'McvRegister',
   components: {},
   methods: {
-    onSubmit(){
-      console.log('asfdsgdfhfgdf');
-    }
+    onSubmit() {
+      console.log('asfdsgdfhfgdf')
+    },
+    incremCounter() {
+      // eslint-disable-next-line no-undef
+      console.log('incremCounter')
+      this.$store.commit('inc');
+    },
   },
 }
 </script>
