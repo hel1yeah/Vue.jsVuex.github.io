@@ -1,6 +1,6 @@
 // todo: Импортируем наш апи запрос
 import authApi from '@/api/auth.js'
-
+import {setItem} from '@/helpers/persistanceStorage.js'
 const state = {
   isSubmitting: false,
   currentUser: null,
@@ -32,6 +32,7 @@ const actions = {
         .then(response => {
           // then срабатывает в случае удачной отправки запроса на сервер и выполняет
           commit('registerSuccess', response.data.user)
+          setItem('accessToken', response.data.user.token)
           resolve(response.data.user)
         })
         .catch(result => {
