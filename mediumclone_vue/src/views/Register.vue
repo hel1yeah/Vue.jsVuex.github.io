@@ -13,7 +13,16 @@
               <input
                 type="text"
                 class="form-control form-control-lg"
+                placeholder="Имя Пользователя"
+                v-model="username"
+              />
+            </fieldset>
+            <fieldset class="form-group">
+              <input
+                type="text"
+                class="form-control form-control-lg"
                 placeholder="Емейл"
+                v-model="email"
               />
             </fieldset>
             <fieldset class="form-group">
@@ -21,13 +30,7 @@
                 type="password"
                 class="form-control form-control-lg"
                 placeholder="Пароль"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Имя Пользователя"
+                v-model="password"
               />
             </fieldset>
             <button
@@ -46,6 +49,13 @@
 <script>
 export default {
   name: 'McvRegister',
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+    }
+  },
   components: {},
   computed: {
     isSubmitting() {
@@ -55,13 +65,16 @@ export default {
   methods: {
     onSubmit() {
       console.log('тест метода в регистур вью ')
-      this.$store.dispatch('register', {
-        email: 'asdfassdsad@asds.com',
-        username: 'asdsasdfgth',
-        password: '1234567890',
-      }).then(user => { 
-        console.log('удачно зарегестрированный пользователь', user)
-      })
+      this.$store
+        .dispatch('register', {
+          email: this.email,
+          username: this.username,
+          password: this.password,
+        })
+        .then((user) => {
+          console.log('удачно зарегестрированный пользователь', user)
+          this.$router.push({name: 'home'})
+        })
     },
   },
 }
