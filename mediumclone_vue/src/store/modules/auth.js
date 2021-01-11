@@ -1,6 +1,6 @@
 // todo: Импортируем наш апи запрос
 import authApi from '@/api/auth.js'
-import {setItem} from '@/helpers/persistanceStorage.js'
+import { setItem } from '@/helpers/persistanceStorage.js'
 const state = {
   isSubmitting: false,
   currentUser: null,
@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
   register({ commit }, objCredentials) {
     return new Promise(resolve => {
-      commit('registerStart')
+      commit('registerStart') //  инициализируем мутацию registerStart
       authApi
         .register(objCredentials)
         .then(response => {

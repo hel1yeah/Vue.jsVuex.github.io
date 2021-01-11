@@ -7,7 +7,9 @@
           <p class="test-sx-center">
             <router-link to="{name : 'login'}"> Есть уже аккаунт? </router-link>
           </p>
-          ошибки валидации
+
+          <mcv-validation-errots v-if="validationErrots" :validationErrots='validationErrots'></mcv-validation-errots>
+
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
               <input
@@ -47,8 +49,13 @@
 </template>
 
 <script>
+
+import McvValidationErrots from '@/components/ValidationErrots.vue';
 export default {
   name: 'McvRegister',
+  components: {
+    McvValidationErrots,
+  },
   data() {
     return {
       username: '',
@@ -56,11 +63,13 @@ export default {
       password: '',
     }
   },
-  components: {},
   computed: {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting
     },
+    validationErrots(){
+      return this.$store.state.auth.validationErrors
+    }
   },
   methods: {
     onSubmit() {

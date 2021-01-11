@@ -1,17 +1,16 @@
-export const getItem = key => {
+export const getItem = ((key) => {
   try {
     return JSON.parse(localStorage.getItem(key))
   } catch (e){
-    console.log('error ошибка при поработе с локал сторедж', e);
+    console.log('ошибка при получении localStorage', e);
     return null
   }
-}
+})
 
 export const setItem = (key, data) => {
   try {
-    localStorage.setItem(key, JSON.stringify(data))
+    window.localStorage.setItem(key, JSON.stringify(data))
   } catch (e){
-    console.log('error ошибка при поработе с локал сторедж', e);
-    return null
+    console.log('ошибка при сохрананении localStorage', e);
   }
 }
