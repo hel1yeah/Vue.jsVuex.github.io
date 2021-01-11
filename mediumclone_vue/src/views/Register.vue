@@ -51,6 +51,7 @@
 <script>
 
 import McvValidationErrots from '@/components/ValidationErrots.vue';
+import {actionsTypes} from '@/store/modules/auth.js'
 export default {
   name: 'McvRegister',
   components: {
@@ -75,7 +76,7 @@ export default {
     onSubmit() {
       console.log('тест метода в регистур вью ')
       this.$store
-        .dispatch('register', {
+        .dispatch(actionsTypes.register, {
           email: this.email,
           username: this.username,
           password: this.password,
