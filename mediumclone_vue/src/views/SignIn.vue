@@ -3,25 +3,21 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-6 offset-md-3 col-sx-12">
-          <h1 class="test-sx-center">Регистрация</h1>
+          <h1 class="test-sx-center">Вход в аккаунт</h1>
           <p class="test-sx-center">
-            <router-link :to="{name : 'signIn'}"> Есть уже аккаунт? </router-link>
+            <router-link :to="{ name: 'register' }">
+              Зарегестрировать аккаунт
+            </router-link>
           </p>
+
           <transition name="slide-fade">
             <mcv-validation-errots
               v-if="validationErrots"
               :validationErrots="validationErrots"
             ></mcv-validation-errots>
           </transition>
+
           <form @submit.prevent="onSubmit">
-            <fieldset class="form-group">
-              <input
-                type="text"
-                class="form-control form-control-lg"
-                placeholder="Имя Пользователя"
-                v-model="username"
-              />
-            </fieldset>
             <fieldset class="form-group">
               <input
                 type="text"
@@ -42,7 +38,7 @@
               class="btn btn-lg btn-primary pull-xs-right"
               :disabled="isSubmitting"
             >
-              Регистрация
+              Вход
             </button>
           </form>
         </div>
@@ -56,13 +52,12 @@ import {mapState} from 'vuex'
 import McvValidationErrots from '@/components/ValidationErrots.vue'
 import { actionsTypes } from '@/store/modules/auth.js'
 export default {
-  name: 'McvRegister',
+  name: 'McvSingIn',
   components: {
     McvValidationErrots,
   },
   data() {
     return {
-      username: '',
       email: '',
       password: '',
     }
@@ -81,15 +76,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('тест метода в регистур вью ')
       this.$store
-        .dispatch(actionsTypes.register, {
+        .dispatch(actionsTypes.signIn, {
           email: this.email,
-          username: this.username,
           password: this.password,
         })
-        .then((user) => {
-          console.log('удачно зарегестрированный пользователь', user)
+        .then(() => {
+          console.log('Вход успешный')
           this.$router.push({ name: 'home' })
         })
     },

@@ -1,4 +1,4 @@
-// ! в этом майле auth.js будем писать все запросы что относятся к модулу авторизаци
+// ! в этом майле auth.js будем писать все запросы что относятся к модулю авторизаци
 
 //  импортируем аксиос с нашёго рут аксиоса а не с ноде модулес
 import axios from '@/api/axios'
@@ -9,7 +9,12 @@ const register = objCredentials => {
   return axios.post('/users', { user: objCredentials })
 }
 
+const signIn = objCredentials => {
+  return axios.post('/users/login', {user: objCredentials})
+}
+
 //  експортируем наш метод для работі с ним в других файлах
 export default {
   register,
+  signIn,
 }

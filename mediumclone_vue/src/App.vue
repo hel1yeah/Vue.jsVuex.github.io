@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/register">register</router-link> |
-      <router-link to="/test">test</router-link>
+      <router-link :to="{name : 'home'}">Домашняя страница</router-link> |
+      <router-link :to="{name : 'register'}">Страница регистрации</router-link> |
+      <router-link :to="{name : 'signIn'}">Страница входа</router-link>
     </div>
     <router-view/>
   </div>
