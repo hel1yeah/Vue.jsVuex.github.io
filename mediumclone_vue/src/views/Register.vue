@@ -7,9 +7,12 @@
           <p class="test-sx-center">
             <router-link to="{name : 'login'}"> Есть уже аккаунт? </router-link>
           </p>
-
-          <mcv-validation-errots v-if="validationErrots" :validationErrots='validationErrots'></mcv-validation-errots>
-
+          <transition name="slide-fade">
+            <mcv-validation-errots
+              v-if="validationErrots"
+              :validationErrots="validationErrots"
+            ></mcv-validation-errots>
+          </transition>
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
               <input
@@ -49,9 +52,8 @@
 </template>
 
 <script>
-
-import McvValidationErrots from '@/components/ValidationErrots.vue';
-import {actionsTypes} from '@/store/modules/auth.js'
+import McvValidationErrots from '@/components/ValidationErrots.vue'
+import { actionsTypes } from '@/store/modules/auth.js'
 export default {
   name: 'McvRegister',
   components: {
@@ -68,9 +70,9 @@ export default {
     isSubmitting() {
       return this.$store.state.auth.isSubmitting
     },
-    validationErrots(){
+    validationErrots() {
       return this.$store.state.auth.validationErrors
-    }
+    },
   },
   methods: {
     onSubmit() {
@@ -83,7 +85,7 @@ export default {
         })
         .then((user) => {
           console.log('удачно зарегестрированный пользователь', user)
-          this.$router.push({name: 'home'})
+          this.$router.push({ name: 'home' })
         })
     },
   },
@@ -93,5 +95,13 @@ export default {
 <style lang="scss">
 .row {
   margin: 0 15px;
+}
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active до версии 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>

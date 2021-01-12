@@ -17,8 +17,10 @@ export default {
   },
   computed: {
     errorMessages(){
-      return Object.keys(this.validationErrots).map(name => {
-        const messages = this.validationErrots[name].join(', ')
+      return Object.keys(this.validationErrots)
+      .map(name => {
+        const messages = this.validationErrots[name]
+        .join(', ')
         return `${name}: ${messages}`
       })
     }
