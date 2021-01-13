@@ -5,11 +5,11 @@ import axios from '@/api/axios'
 
 //  создаём метот для роботы с апи register
 //  создаём метот которій делает апи запрос и передаёт наш objCredentials из формы и передаёт их в нужной структуре
-const register = objCredentials => {
+const register = (objCredentials) => {
   return axios.post('/users', { user: objCredentials })
 }
 
-const signIn = objCredentials => {
+const signIn = (objCredentials) => {
   return axios.post('/users/login', {user: objCredentials})
 }
 

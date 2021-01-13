@@ -81,7 +81,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('тест метода в регистур вью ')
       this.$store
         .dispatch(actionsTypes.register, {
           email: this.email,

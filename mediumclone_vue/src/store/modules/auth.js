@@ -75,11 +75,10 @@ const actions = {
     })
   },
   [actionsTypes.signIn]({ commit }, objCredentials) {
-    return new Promise(resolve => {
-      commit(mutationsTypes.signInStart)
-      authApi
-        .signIn(objCredentials)
-        .then(response => {
+    return new Promise((resolve) => {
+      commit(mutationsTypes.signInStart);
+      authApi.signIn(objCredentials)
+      .then(response => {
           commit(mutationsTypes.signInSuccess, response.data.user)
           setItem('accessToken', response.data.user.token)
           resolve(response.data.user)
@@ -97,3 +96,5 @@ export default {
   mutations,
   actions,
 }
+
+
