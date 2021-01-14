@@ -8,6 +8,7 @@ const state = {
   validationErrors: null,
   isLoggedIn: null,
 }
+
 export const mutationsTypes = {
   registerStart: '[auth] registerStart',
   registerSuccess: '[auth] registerSuccess',
@@ -17,13 +18,33 @@ export const mutationsTypes = {
   signInSuccess: '[auth] signInSuccess',
   signInFailure: '[auth] signInFailure',
 }
+
+export const gettersTypes = {
+  currentUser: '[auth] currentUser',
+  isLoggedIn: '[auth] isLoggedIn',
+  isAnonymous: '[auth] isAnonymous'
+}
+
+const getters = {
+  [gettersTypes.currentUser]: state => {
+    return state.currentUser
+  },
+  [gettersTypes.isLoggedIn]: state => {
+    return Boolean(state.isLoggedIn)
+  },
+  [gettersTypes.isAnonymous]: state => {
+    return state.isLoggedIn === false
+  }
+}
+
 //* actions
 export const actionsTypes = {
   register: '[auth] register',
   signIn: '[auth] signIn',
 }
+
+//* мутации регистрации
 const mutations = {
-  //* мутации регистрации
   [mutationsTypes.registerStart](state) {
     state.isSubmitting = true
     state.validationErrors = null
@@ -74,18 +95,20 @@ const actions = {
         })
     })
   },
+
   [actionsTypes.signIn]({ commit }, objCredentials) {
-    return new Promise((resolve) => {
-      commit(mutationsTypes.signInStart);
-      authApi.signIn(objCredentials)
-      .then(response => {
+    return new Promise(resolve => {
+      commit(mutationsTypes.signInStart)
+      authApi
+        .signIn(objCredentials)
+        .then(response => {
           commit(mutationsTypes.signInSuccess, response.data.user)
           setItem('accessToken', response.data.user.token)
           resolve(response.data.user)
         })
         .catch(result => {
           commit(mutationsTypes.signInFailure, result.response.data.errors)
-          console.log('ошибка логина ', result);
+          console.log('ошибка логина ', result)
         })
     })
   },
@@ -93,8 +116,7 @@ const actions = {
 
 export default {
   state,
+  getters,
   mutations,
   actions,
 }
-
-
