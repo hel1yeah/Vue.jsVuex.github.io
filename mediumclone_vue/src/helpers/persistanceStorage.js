@@ -7,10 +7,12 @@ export const getItem = ((key) => {
   }
 })
 
+// setItem получет на вход = key строку которая даёт имя нашему токину 
+// data и есть наш токен 
 export const setItem = (key, data) => {
   try {
-    window.localStorage.setItem(key, JSON.stringify(data))
-  } catch (e){
-    console.log('ошибка при сохрананении localStorage', e);
+    window.localStorage.setItem(key, JSON.stringify(data)) // JSON.stringify(data) проеобразует значение data в строку 
+  } catch (err){
+    console.log('ошибка при сохрананении localStorage', err);
   }
 }
