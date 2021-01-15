@@ -4,9 +4,16 @@ import { setItem } from '@/helpers/persistanceStorage.js'
 // import { resolve } from 'core-js/fn/promise'
 const state = {
   isSubmitting: false,
+  isLoading: false,
   currentUser: null,
   validationErrors: null,
   isLoggedIn: null,
+}
+//* actions
+export const actionsTypes = {
+  register: '[auth] register',
+  signIn: '[auth] signIn',
+  getCurrentUser: '[auth] getCurrentUser',
 }
 
 export const mutationsTypes = {
@@ -17,12 +24,16 @@ export const mutationsTypes = {
   signInStart: '[auth] signInStart',
   signInSuccess: '[auth] signInSuccess',
   signInFailure: '[auth] signInFailure',
+
+  getCurrentUserStart: '[auth] getCurrentUserStart',
+  getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
+  getCurrentUserFailure: '[auth] getCurrentUserFailure',
 }
 
 export const gettersTypes = {
   currentUser: '[auth] currentUser',
   isLoggedIn: '[auth] isLoggedIn',
-  isAnonymous: '[auth] isAnonymous'
+  isAnonymous: '[auth] isAnonymous',
 }
 
 const getters = {
@@ -34,14 +45,10 @@ const getters = {
   },
   [gettersTypes.isAnonymous]: state => {
     return state.isLoggedIn === false
-  }
+  },
 }
 
-//* actions
-export const actionsTypes = {
-  register: '[auth] register',
-  signIn: '[auth] signIn',
-}
+
 
 //* мутации регистрации
 const mutations = {
@@ -71,6 +78,20 @@ const mutations = {
   [mutationsTypes.signInFailure](state, payload) {
     state.isSubmitting = false
     state.validationErrors = payload
+  },
+  //* мутации получения пользовавтеля
+  [mutationsTypes.getCurrentUserStart](state) {
+    state.isLoading = true
+  },
+  [mutationsTypes.getCurrentUserSuccess](state, payload) {
+    state.isLoading = false
+    state.currentUser = payload
+    state.isLoggedIn = true
+  },
+  [mutationsTypes.getCurrentUserFailure](state) {
+    state.isLoading = false
+    state.isLoggedIn = false
+    state.currentUser = null
   },
 }
 
@@ -109,6 +130,22 @@ const actions = {
         .catch(result => {
           commit(mutationsTypes.signInFailure, result.response.data.errors)
           console.log('ошибка логина ', result)
+        })
+    })
+  },
+  [actionsTypes.getCurrentUser]({ commit }) {
+    return new Promise(resolve => {
+      commit(mutationsTypes.getCurrentUserStart)
+      authApi
+        .getCurrentUser()
+        .then(response => {
+          commit(mutationsTypes.getCurrentUserSuccess, response.data.user)
+          setItem('accessToken', response.data.user.token)
+          resolve(response.data.user)
+        })
+        .catch(() => {
+          commit(mutationsTypes.getCurrentUserFailure)
+          console.log('ошибка логина getCurrentUser')
         })
     })
   },

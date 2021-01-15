@@ -13,8 +13,12 @@ const signIn = (objCredentials) => {
   return axios.post('/users/login', {user: objCredentials})
 }
 
+const getCurrentUser = ()=> {
+  return axios.get('/user')
+}
 //  експортируем наш метод для работі с ним в других файлах
 export default {
   register,
   signIn,
+  getCurrentUser,
 }
