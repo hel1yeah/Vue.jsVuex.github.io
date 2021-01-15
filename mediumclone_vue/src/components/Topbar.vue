@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-light">
-    <router-link :to="{ name: 'home' }" class="navbar-brand">
+    <router-link :to="{ name: 'globalFeed' }" class="navbar-brand">
       Vue Medium Clone
     </router-link>
     <ul class="nav navbar-nav pull-xs-right">
@@ -8,7 +8,7 @@
         <router-link
           class="nav-link"
           active-class="active"
-          :to="{ name: 'home' }"
+          :to="{ name: 'globalFeed' }"
           exact
           >Home</router-link
         >

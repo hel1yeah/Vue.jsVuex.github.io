@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container">
       <!-- <div id="nav">
-      <router-link :to="{name : 'home'}">Домашняя страница</router-link> |
+      <router-link :to="{name : 'globalFeed'}">Домашняя страница</router-link> |
       <router-link :to="{name : 'register'}">Страница регистрации</router-link> |
       <router-link :to="{name : 'signIn'}">Страница входа</router-link>
     </div> -->

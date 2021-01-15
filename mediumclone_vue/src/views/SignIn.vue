@@ -83,7 +83,7 @@ export default {
         })
         .then(() => {
           console.log('Вход успешный')
-          this.$router.push({ name: 'home' })
+          this.$router.push({ name: 'globalFeed' })
         })
     },
   },
