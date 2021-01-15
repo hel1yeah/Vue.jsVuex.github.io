@@ -8,7 +8,7 @@ const state = {
 
 export const mutationsTypes = {
   getFeedStart: '[feed] getFeedStart',
-  getFeedSucces: '[feed] getFeedSucces',
+  getFeedSuccess: '[feed] getFeedSuccess',
   getFeedFailure: '[feed] getFeedFailure',
 }
 
@@ -20,7 +20,7 @@ const mutations = {
   [mutationsTypes.getFeedStart](state) {
     (state.isLoading = true), (state.data = null)
   },
-  [mutationsTypes.getFeedSucces](state, payload) {
+  [mutationsTypes.getFeedSuccess](state, payload) {
     (state.isLoading = false), (state.data = payload)
   },
   [mutationsTypes.getFeedFailure](state) {
@@ -31,18 +31,18 @@ const mutations = {
 const actions = {
   [actionsTypes.getFeed]({ commit }, { apiUrl }) {
     return new Promise(resolve => {
-      commit(mutationsTypes.getFeedStart)
+      commit(mutationsTypes.getFeedStart, apiUrl)
       feedApi
         .getFeed(apiUrl)
-        .then(res => {
-          commit(mutationsTypes.getFeedSucces, res.data)
-          resolve(res.data)
+        .then(response => {
+          commit(mutationsTypes.getFeedSuccess, response.data)
+          resolve(response.data)
         })
-        .cath(() => {
+        .catch(() => {
           commit(mutationsTypes.getFeedFailure)
         })
     })
-  },
+  }
 }
 
 export default {
