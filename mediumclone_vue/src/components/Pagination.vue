@@ -38,7 +38,6 @@ export default {
   computed: {
     pages() {
       const pagesCount = Math.ceil(this.total / this.limit)
-      console.log(range(1, pagesCount))
       return range(1, pagesCount)
     },
   },
