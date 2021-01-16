@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div v-if="isLoading"  class="loader">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
+    <div v-if="isLoading" class="loader">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
     </div>
     <div v-if="error">Произошла ошибка</div>
 
@@ -44,10 +44,15 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Читать больше...</span>
-          СПИСОК ТЕГОВ 
+          СПИСОК ТЕГОВ
         </router-link>
       </div>
-      НУМЕРАЦИЯ СРАНИЦ
+      <mcv-pagination
+        :total="total"
+        :limit="limit"
+        :current-page="currentPage"
+        :url="url"
+      ></mcv-pagination>
     </div>
   </div>
 </template>
@@ -55,8 +60,20 @@
 <script>
 import { mapState } from 'vuex'
 import { actionsTypes } from '@/store/modules/feed'
+import McvPagination from '@/components/Pagination'
 export default {
   name: 'McvFeed',
+  data() {
+    return {
+      total: 500,
+      limit: 10,
+      currentPage: 7,
+      url: '/',
+    }
+  },
+  components:{
+    McvPagination
+  },
   props: {
     apiUrl: {
       type: String,
