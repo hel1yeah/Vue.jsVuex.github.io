@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="isLoading" class="loader">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
     <!-- <div v-if="error">error</div> -->
 
     <div class="sidebar" v-if="popularTags">
@@ -36,3 +42,8 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+
+
+</style>
