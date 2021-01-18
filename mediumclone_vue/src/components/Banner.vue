@@ -12,3 +12,9 @@ export default {
   name: 'McvBanner'
 }
 </script>
+
+<style lang="scss">
+.banner{
+  text-align: center;
+}
+</style>

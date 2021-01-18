@@ -95,7 +95,7 @@ export default {
     // isAnonymous(){
     //   return this.$store.getters[gettersTypes.isAnonymous]
     // },
-  }
+  },
 }
 </script>
 

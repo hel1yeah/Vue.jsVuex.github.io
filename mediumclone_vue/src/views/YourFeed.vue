@@ -21,7 +21,7 @@ import McvPopularTags from '@/components/PopularTags.vue'
 import McvBanner from '@/components/Banner.vue'
 import McvFeedToggler from '@/components/FeedToggler.vue'
 export default {
-  name: 'McvGlobalFeed',
+  name: 'McvYourFeed',
   components: {
     McvFeed,
     McvPopularTags,
@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      apiUrl: '/articles',
+      apiUrl: '/articles/feed',
     }
   },
 }

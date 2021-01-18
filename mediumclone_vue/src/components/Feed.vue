@@ -1,9 +1,8 @@
 <template>
   <div>
     <mcv-loading v-if="isLoading"></mcv-loading>
-    
     <mcv-error-message v-if="error"></mcv-error-message>
-
+    
     <div v-if="feed">
       <div
         class="article-preview"
