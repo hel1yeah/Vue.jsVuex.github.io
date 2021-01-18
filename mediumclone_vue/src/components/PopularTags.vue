@@ -1,13 +1,7 @@
 <template>
   <div>
-    <div v-if="isLoading" class="loader">
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-    </div>
-    <!-- <div v-if="error">error</div> -->
+    <mcv-loading v-if="isLoading"></mcv-loading>
+    <mcv-error-message v-if="error"></mcv-error-message>
 
     <div class="sidebar" v-if="popularTags">
       <p>Popular Tags</p>
@@ -18,7 +12,6 @@
           :to="{ name: 'tag', params: { slug: popularTag } }"
           class="tag-default tag-pill"
           >{{ popularTag }}
-          
         </router-link>
       </div>
     </div>
@@ -26,10 +19,16 @@
 </template>
 
 <script>
+import McvLoading from '@/components/Loading.vue'
+import McvErrorMessage from '@/components/ErrorMessage.vue'
 import { mapState } from 'vuex'
 import { actionsTypes } from '@/store/modules/popularTags'
 export default {
   name: 'McvPopularTags',
+  components: {
+    McvLoading,
+    McvErrorMessage,
+  },
   computed: {
     ...mapState({
       isLoading: (state) => state.popularTags.isLoading,
@@ -44,6 +43,4 @@ export default {
 </script>
 
 <style lang="scss">
-
-
 </style>

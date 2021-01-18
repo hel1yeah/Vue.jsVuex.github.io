@@ -1,14 +1,8 @@
 <template>
   <div>
-    <div v-if="isLoading" class="loader">
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-    </div>
-
-    <div v-if="error">Произошла ошибка</div>
+    <mcv-loading v-if="isLoading"></mcv-loading>
+    
+    <mcv-error-message v-if="error"></mcv-error-message>
 
     <div v-if="feed">
       <div
@@ -62,8 +56,10 @@
 import { mapState } from 'vuex'
 import { actionsTypes } from '@/store/modules/feed'
 import McvPagination from '@/components/Pagination'
+import McvLoading from '@/components/Loading.vue'
+import McvErrorMessage from '@/components/ErrorMessage.vue'
 import { limit } from '@/helpers/vars'
-import {stringify, parseUrl} from 'query-string'
+import { stringify, parseUrl } from 'query-string'
 export default {
   name: 'McvFeed',
   data() {
@@ -75,6 +71,8 @@ export default {
   },
   components: {
     McvPagination,
+    McvLoading,
+    McvErrorMessage,
   },
   props: {
     apiUrl: {
@@ -94,20 +92,20 @@ export default {
     baseUrl() {
       return this.$route.path
     },
-    offset(){
+    offset() {
       return this.currentPage * limit - limit
-    }
+    },
   },
-  watch:{
-    currentPage(){
+  watch: {
+    currentPage() {
       this.fetchFeed()
-    }
+    },
   },
   mounted() {
     this.fetchFeed()
   },
-  methods:{
-    fetchFeed(){
+  methods: {
+    fetchFeed() {
       const parsedUrl = parseUrl(this.apiUrl)
       const stringifyparams = stringify({
         limit,
@@ -116,11 +114,10 @@ export default {
       })
       const apiUrlWithParams = `${parsedUrl.url}?${stringifyparams}`
       this.$store.dispatch(actionsTypes.getFeed, { apiUrl: apiUrlWithParams })
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss">
-
 </style>
