@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="error-messages">
     {{message}}
   </div>
 </template>
@@ -16,3 +16,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.error-messages{
+  color: red;
+}
+</style>
