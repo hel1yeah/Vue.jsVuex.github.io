@@ -38,7 +38,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Читать больше...</span>
-          СПИСОК ТЕГОВ
+          <mcv-tag-list :tags="article.tagList" ></mcv-tag-list>
         </router-link>
       </div>
       <mcv-pagination
@@ -57,6 +57,7 @@ import { actionsTypes } from '@/store/modules/feed'
 import McvPagination from '@/components/Pagination'
 import McvLoading from '@/components/Loading.vue'
 import McvErrorMessage from '@/components/ErrorMessage.vue'
+import McvTagList from '@/components/TagList.vue'
 import { limit } from '@/helpers/vars'
 import { stringify, parseUrl } from 'query-string'
 export default {
@@ -72,6 +73,7 @@ export default {
     McvPagination,
     McvLoading,
     McvErrorMessage,
+    McvTagList,
   },
   props: {
     apiUrl: {
