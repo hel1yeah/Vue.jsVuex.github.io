@@ -1,0 +1,98 @@
+<template>
+  <div class="editor-page">
+    <div class="container page">
+      <div class="row">
+        <div class="col-mad-10 offset-md-1 col-xs-12">
+          <mcv-validation-errors v-if="validationValue" />
+          <form @submit.prevent="onSubmit">
+            <fieldset>
+              <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control corm-control-lg"
+                  placeholder="Название статьи"
+                  v-model="title"
+                />
+              </fieldset>
+              <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control corm-control-lg"
+                  placeholder="Описание "
+                  v-model="description"
+                />
+              </fieldset>
+              <fieldset class="form-group">
+                <textarea
+                  class="form-control corm-control-lg"
+                  placeholder="O чем эта статья ?"
+                  v-model="body"
+                ></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <input
+                  type="text"
+                  class="form-control corm-control-lg"
+                  placeholder="Введите теги "
+                  v-model="tagList"
+                />
+              </fieldset>
+              <fieldset class="form-group">
+                <button
+                  type="submit"
+                  class="btn btn-lg pull-xs-right btn-primary"
+                  :disabled="isSubmitting"
+                >Опубликовать Новость</button>
+              </fieldset>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import McvValidationErrors from '@/components/ValidationErrors.vue'
+export default {
+  name: 'McvArticleForm',
+  components: {
+    McvValidationErrors,
+  },
+  props: {
+    initialValue: {
+      type: Object,
+      required: true,
+    },
+    validationValue: {
+      type: Object,
+      required: false,
+    },
+    isSubmitting: {
+      type: Boolean,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      title: '',
+      description: '',
+      body: '',
+      tagList: '',
+    }
+  },
+  methods: {
+    onSubmit() {
+      const form = {
+        title: this.title,
+        body: this.body,
+        description: this.description,
+        tagList: this.tagList
+      }
+      this.$emit('articleSubmit', form)
+    },
+  },
+}
+</script>
+

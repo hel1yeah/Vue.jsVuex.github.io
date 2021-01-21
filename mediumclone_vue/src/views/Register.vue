@@ -8,10 +8,10 @@
             <router-link :to="{name : 'signIn'}"> Есть уже аккаунт? </router-link>
           </p>
           <transition name="slide-fade">
-            <mcv-validation-errots
-              v-if="validationErrots"
-              :validationErrots="validationErrots"
-            ></mcv-validation-errots>
+            <mcv-validation-errors
+              v-if="validationErrors"
+              :validationErrors="validationErrors"
+            ></mcv-validation-errors>
           </transition>
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
@@ -53,12 +53,12 @@
 
 <script>
 import {mapState} from 'vuex'
-import McvValidationErrots from '@/components/ValidationErrots.vue'
+import McvValidationErrors from '@/components/ValidationErrors.vue'
 import { actionsTypes } from '@/store/modules/auth.js'
 export default {
   name: 'McvRegister',
   components: {
-    McvValidationErrots,
+    McvValidationErrors,
   },
   data() {
     return {
@@ -70,12 +70,12 @@ export default {
   computed: {
     ...mapState({
       isSubmitting: state => state.auth.isSubmitting, 
-      validationErrots: state => state.auth.validationErrors
+      validationErrors: state => state.auth.validationErrors
     })
     // isSubmitting() {
     //   return this.$store.state.auth.isSubmitting
     // },
-    // validationErrots() {
+    // validationErrors() {
     //   return this.$store.state.auth.validationErrors
     // },
   },

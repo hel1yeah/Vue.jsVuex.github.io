@@ -7,19 +7,20 @@
 </template>
 
 <script>
+
 export default {
-  name: 'McvValidationErrots',
+  name: 'McvValidationErrors',
   props: {
-    validationErrots: {
+    validationErrors: {
       type: Object,
       required: true,
     },
   },
   computed: {
     errorMessages(){
-      return Object.keys(this.validationErrots)
+      return Object.keys(this.McvValidationErrors)
       .map(name => {
-        const messages = this.validationErrots[name]
+        const messages = this.McvValidationErrors[name]
         .join(', ')
         return `${name}: ${messages}`
       })
