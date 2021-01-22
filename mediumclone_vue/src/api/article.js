@@ -1,6 +1,5 @@
 import axios from '@/api/axios'
 
-
 const getArticle = slug => {
   return axios.get(`/articles/${slug}`).then(response => response.data.article)
 }
@@ -14,8 +13,15 @@ const createArticle = articleInput => {
     .post('/articles', { article: articleInput })
     .then(response => response.data.article)
 }
+
+const updateArticle = (slug, articleInput) => {
+  return axios
+    .put(`/article/${slug}`, articleInput)
+    .then(response => response.data.article)
+}
 export default {
   getArticle,
   deleteArticle,
   createArticle,
+  updateArticle,
 }
