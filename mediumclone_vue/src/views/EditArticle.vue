@@ -49,11 +49,13 @@ export default {
   },
   methods: {
     onSubmit(articleInput) {
+      console.log('test onSubmit updateArticle');
       const slug = this.$route.params.slug
       this.$store
-        .dispatch(actionsTypes.updateArticle, { slug, articleInput })
+        .dispatch(actionsTypes.updateArticle, {articleInput, slug })
         .then((article) => {
           this.$router.push({ name: 'article', params: { slug: article.slug } })
+          console.log('then onSubmit');
         })
     },
   },

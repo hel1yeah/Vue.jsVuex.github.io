@@ -42,7 +42,9 @@
                   type="submit"
                   class="btn btn-lg pull-xs-right btn-primary"
                   :disabled="isSubmitting"
-                >Опубликовать Новость</button>
+                >
+                  Опубликовать Новость
+                </button>
               </fieldset>
             </fieldset>
           </form>
@@ -73,13 +75,12 @@ export default {
       required: true,
     },
   },
-
   data() {
     return {
       title: this.initialValue.title,
       description: this.initialValue.description,
       body: this.initialValue.body,
-      tagList: this.initialValue.tagList.join(' '),
+      tagList: this.initialValue.tagList.join(' ')
     }
   },
   methods: {
@@ -91,8 +92,8 @@ export default {
         tagList: this.tagList.split(' ')
       }
       this.$emit('articleSubmit', form)
-    },
-  },
+    }
+  }
 }
 </script>
 

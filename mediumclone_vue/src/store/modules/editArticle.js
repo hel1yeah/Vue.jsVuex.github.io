@@ -17,24 +17,17 @@ export const mutationsTypes = {
   getArticleFailure: '[updateArticle] get Article Failure',
 }
 
-export const actionsTypes = {
-  updateArticle: '[updateArticle] update Article',
-  getArticle: '[updateArticle] update Article',
-}
-
 const mutations = {
   [mutationsTypes.updateArticleStart](state) {
     state.isSubmitting = true
   },
-  [mutationsTypes.updateArticleSuccess](state, payload) {
+  [mutationsTypes.updateArticleSuccess](state) {
     state.isSubmitting = false
-    state.article = payload
   },
   [mutationsTypes.updateArticleFailure](state, payload) {
     state.isSubmitting = false
     state.validationErrors = payload
   },
-
   [mutationsTypes.getArticleStart](state) {
     state.isLoading = true
   },
@@ -47,9 +40,14 @@ const mutations = {
   },
 }
 
+export const actionsTypes = {
+  updateArticle: '[updateArticle] update Article',
+  getArticle: '[updateArticle] update getArticle',
+}
+
 const actions = {
   [actionsTypes.updateArticle]({ commit }, { slug, articleInput }) {
-    console.log('red');
+    console.log('before Promise');
     return new Promise(resolve => {
       console.log('red');
       commit(mutationsTypes.updateArticleStart)
@@ -60,8 +58,9 @@ const actions = {
           resolve(article)
         })
         .catch(result => {
-          console.log(result.response.data.errors)
-          commit( mutationsTypes.updateArticleFailure,
+          console.log('errors')
+          commit( 
+            mutationsTypes.updateArticleFailure,
             result.response.data.errors,
           )
         })
