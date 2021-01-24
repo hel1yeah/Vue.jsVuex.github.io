@@ -3,7 +3,7 @@
     <div class="container page">
       <div class="row">
         <div class="col-mad-10 offset-md-1 col-xs-12">
-          <!-- <mcv-validation-errors v-if="errors" :validation-errors="errors" /> -->
+          <mcv-validation-errors v-if="errors" :validation-errors="errors" />
           <form @submit.prevent="onSubmit">
             <fieldset>
               <fieldset class="form-group">
@@ -55,11 +55,11 @@
 </template>
 
 <script>
-// import McvValidationErrors from '@/components/ValidationErrors.vue'
+import McvValidationErrors from '@/components/ValidationErrors.vue'
 export default {
   name: 'McvArticleForm',
   components: {
-    // McvValidationErrors,
+    McvValidationErrors,
   },
   props: {
     initialValue: {

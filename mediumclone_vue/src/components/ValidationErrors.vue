@@ -18,9 +18,9 @@ export default {
   },
   computed: {
     errorMessages(){
-      return Object.keys(this.McvValidationErrors)
+      return Object.keys(this.validationErrors)
       .map(name => {
-        const messages = this.McvValidationErrors[name]
+        const messages = this.validationErrors[name]
         .join(', ')
         return `${name}: ${messages}`
       })

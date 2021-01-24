@@ -1,7 +1,7 @@
 // todo: Импортируем наш апи запрос
 import authApi from '@/api/auth.js'
 import { setItem } from '@/helpers/persistanceStorage.js'
-// import { resolve } from 'core-js/fn/promise'
+
 const state = {
   isSubmitting: false,
   isLoading: false,
@@ -14,26 +14,35 @@ export const actionsTypes = {
   register: '[auth] register',
   signIn: '[auth] signIn',
   getCurrentUser: '[auth] getCurrentUser',
+  updateCurrentUser: '[auth] updateCurrentUser',
+  logout: '[auth] logout'
 }
 
 export const mutationsTypes = {
-  registerStart: '[auth] registerStart',
-  registerSuccess: '[auth] registerSuccess',
-  registerFailure: '[auth] registerFailure',
+  registerStart: '[auth] register Start',
+  registerSuccess: '[auth] register Success',
+  registerFailure: '[auth] register Failure',
 
-  signInStart: '[auth] signInStart',
-  signInSuccess: '[auth] signInSuccess',
-  signInFailure: '[auth] signInFailure',
+  signInStart: '[auth] sign In Start',
+  signInSuccess: '[auth] sign In Success',
+  signInFailure: '[auth] sign In Failure',
 
-  getCurrentUserStart: '[auth] getCurrentUserStart',
-  getCurrentUserSuccess: '[auth] getCurrentUserSuccess',
-  getCurrentUserFailure: '[auth] getCurrentUserFailure',
+  getCurrentUserStart: '[auth] get Current User Start',
+  getCurrentUserSuccess: '[auth] get Current User Success',
+  getCurrentUserFailure: '[auth] get CurrentUser Failure',
+
+  updateCurrentUserStart: '[auth] update UserStart',
+  updateCurrentUserSuccess: '[auth] update UserSuccess',
+  updateCurrentUserFailure: '[auth] update UserFailure',
+
+  logout: '[outh] logout'
 }
 
 export const gettersTypes = {
   currentUser: '[auth] currentUser',
   isLoggedIn: '[auth] isLoggedIn',
   isAnonymous: '[auth] isAnonymous',
+  updateCurrentUser: '[auth] updateCurrentUser',
 }
 
 const getters = {
@@ -47,8 +56,6 @@ const getters = {
     return state.isLoggedIn === false
   },
 }
-
-
 
 //* мутации регистрации
 const mutations = {
@@ -93,6 +100,17 @@ const mutations = {
     state.isLoggedIn = false
     state.currentUser = null
   },
+  //* мутации изменения юезера  пользовавтеля
+  [mutationsTypes.updateCurrentUserStart]() {},
+  [mutationsTypes.updateCurrentUserSuccess](state, payload) {
+    state.currentUser = payload
+  },
+  [mutationsTypes.updateCurrentUserFailure]() {},
+
+  [mutationsTypes.logout](state){
+    state.currentUser = null
+    state.isLoggedIn = false
+  }
 }
 
 const actions = {
@@ -107,6 +125,7 @@ const actions = {
           setItem('accessToken', response.data.user.token) // сетим наш токин
           resolve(response.data.user)
         })
+
         .catch(result => {
           // catch срабатывает в случае не удачной отправки запроса на сервер и выполняет
           commit(mutationsTypes.registerFailure, result.response.data.errors)
@@ -149,6 +168,32 @@ const actions = {
         })
     })
   },
+  [actionsTypes.updateCurrentUser]({ commit }, { currentUserInput }) {
+    return new Promise(resolve => {
+      commit(mutationsTypes.updateCurrentUserStart)
+      authApi
+        .updateCurrentUser(currentUserInput)
+        .then(user => {
+          commit(mutationsTypes.updateCurrentUserSuccess, user)
+          resolve(user)
+        })
+        .catch(result => {
+          commit(
+            mutationsTypes.updateCurrentUserFailure,
+            result.response.data.errors,
+          )
+          console.log('ошибка логина updateCurrentUserFailure')
+          console.log(result.response.data.errors)
+        })
+    })
+  },
+  [actionsTypes.logout]({commit}){
+    return new Promise(resolve => {
+      setItem('accessTocken', '')
+      commit(mutationsTypes.logout)
+      resolve()
+    })
+  }
 }
 
 export default {
