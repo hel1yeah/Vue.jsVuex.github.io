@@ -2,7 +2,7 @@
   <div>
     <mcv-loading v-if="isLoading"></mcv-loading>
     <mcv-error-message v-if="error"></mcv-error-message>
-    
+
     <div v-if="feed">
       <div
         class="article-preview"
@@ -29,7 +29,14 @@
             </router-link>
             <span class="date">{{ article.createdAt }}</span>
           </div>
-          <div class="pull-xs-right">ДОБАВИТЬ В ИЗБРАННОЕ</div>
+          <div class="pull-xs-right">
+            <mcv-add-to-favorites
+              :is-favorited="article.favorited"
+              :article-slug="article.slug"
+              :favorites-count="article.favoritesCount"
+            >
+            </mcv-add-to-favorites>
+          </div>
         </div>
         <router-link
           :to="{ name: 'article', params: { slug: article.slug } }"
@@ -38,7 +45,7 @@
           <h1>{{ article.title }}</h1>
           <p>{{ article.description }}</p>
           <span>Читать больше...</span>
-          <mcv-tag-list :tags="article.tagList" ></mcv-tag-list>
+          <mcv-tag-list :tags="article.tagList"></mcv-tag-list>
         </router-link>
       </div>
       <mcv-pagination
@@ -52,14 +59,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { actionsTypes } from '@/store/modules/feed'
 import McvPagination from '@/components/Pagination'
 import McvLoading from '@/components/Loading.vue'
 import McvErrorMessage from '@/components/ErrorMessage.vue'
 import McvTagList from '@/components/TagList.vue'
+import McvAddToFavorites from '@/components/AddToFavorites.vue'
+
+import { mapState } from 'vuex'
+import { actionsTypes } from '@/store/modules/feed'
+
 import { limit } from '@/helpers/vars'
 import { stringify, parseUrl } from 'query-string'
+
 export default {
   name: 'McvFeed',
   data() {
@@ -74,6 +85,7 @@ export default {
     McvLoading,
     McvErrorMessage,
     McvTagList,
+    McvAddToFavorites,
   },
   props: {
     apiUrl: {

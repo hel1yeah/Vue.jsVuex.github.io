@@ -61,11 +61,12 @@
 <script>
 import McvErrorMessage from '@/components/ErrorMessage.vue'
 import McvLoading from '@/components/Loading.vue'
+import McvTagList from '@/components/TagList.vue'
 
 import { actionsTypes as articleActionsTypes } from '@/store/modules/article'
 import { gettersTypes as authGetterTypes } from '@/store/modules/auth'
 import { mapState, mapGetters } from 'vuex'
-import McvTagList from '@/components/TagList.vue'
+
 
 export default {
   name: 'McvArticle',
