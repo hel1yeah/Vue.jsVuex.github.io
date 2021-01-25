@@ -1,15 +1,11 @@
 import addToFavoritesApi from '@/api/addToFavorites'
-import { mutationsTypes } from './article'
+// import { mutationsTypes } from './article'
 // import { mutationsTypes } from "./article"
 
-export const mitationTypes = {
+export const mutationsTypes = {
   addToFavoritesStart: '[addToFavorites] add To Favorites Start',
   addToFavoritesSuccess: '[addToFavorites] add To Favorites Success',
   addToFavoritesFailure: '[addToFavorites] add To Favorites Failure',
-}
-
-export const actionsTypes = {
-  addToFavorites: '[addToFavorites] add To Favorites',
 }
 
 const mutations = {
@@ -18,8 +14,13 @@ const mutations = {
   [mutationsTypes.addToFavoritesFailure]() {},
 }
 
+export const actionsTypes = {
+  addToFavorites: '[addToFavorites] add To Favorites',
+}
+
 const actions = {
   [actionsTypes.addToFavorites]({ commit }, { slug, isFavorited }) {
+    console.log(mutationsTypes);
     return new Promise(resolve => {
       commit(mutationsTypes.addToFavoritesStart)
 

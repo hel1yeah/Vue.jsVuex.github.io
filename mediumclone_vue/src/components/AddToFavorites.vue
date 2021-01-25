@@ -39,25 +39,25 @@ export default {
   },
   methods: {
     hendleLike() {
-      console.log('slig', this.articleSlug)
+      console.log('slug', this.articleSlug)
       console.log('isFavorited', this.isFavoritedOptimistic)
       console.log('favoritesCount', this.favoritesCountOptimistic)
-
-      this.$store.dispatch(actionsTypes.addToFavorites, {slug: this.articleSlug, isFavorited: this.isFavoritedOptimistic,
+      console.log(actionsTypes.addToFavorites)
+      this.$store.dispatch(actionsTypes.addToFavorites, {
+        slug: this.articleSlug,
+        isFavorited: this.isFavoritedOptimistic,
       })
 
-if (this.isFavoritedOptimistic){
-  this.favoritesCountOptimistic = this.favoritesCountOptimistic - 1
-} else {
-  this.favoritesCountOptimistic = this.favoritesCountOptimistic + 1
-}
-this.isFavoritedOptimistic = !this.isFavoritedOptimistic
+      if (this.isFavoritedOptimistic) {
+        this.favoritesCountOptimistic = this.favoritesCountOptimistic - 1
+      } else {
+        this.favoritesCountOptimistic = this.favoritesCountOptimistic + 1
+      }
+      this.isFavoritedOptimistic = !this.isFavoritedOptimistic
 
       // this.isFavoritedOptimistic
       //   ? (this.favoritesCountOptimistic = this.favoritesCountOptimistic - 1)
       //   : (this.favoritesCountOptimistic = this.favoritesCountOptimistic + 1)
-
-      
     },
   },
 }
