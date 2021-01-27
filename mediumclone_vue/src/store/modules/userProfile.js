@@ -34,7 +34,7 @@ const actions = {
     return new Promise(resolve => {
       commit(mutationsTypes.getUserProfileStart)
       userProfileApi
-        .getuserProfile(slug)
+        .getUserProfile(slug)
         .then(userProfile => {
           commit(mutationsTypes.getUserProfileSuccess, userProfile)
           resolve(userProfile)

@@ -1,9 +1,9 @@
-import axios from '@/api/axios'
+import axios from '@/api/axios' //* импортируем корневой axios 
 
-const getuserProfile = slug => {
+const getUserProfile = slug => { //* функция которая по get запросу получает пользователя
   return axios.get(`/profiles/${slug}`).then(response => response.data.profile)
 }
 
 export default {
-  getuserProfile,
+  getUserProfile, //* експортирем функцию без експорта к ней невозможно обратиться
 }
