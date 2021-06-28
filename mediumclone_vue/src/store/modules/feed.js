@@ -18,10 +18,12 @@ export const actionsTypes = {
 
 const mutations = {
   [mutationsTypes.getFeedStart](state) {
-    (state.isLoading = true), (state.data = null)
+    state.isLoading = true
+    state.data = null
   },
   [mutationsTypes.getFeedSuccess](state, payload) {
-    (state.isLoading = false), (state.data = payload)
+    state.isLoading = false
+    state.data = payload
   },
   [mutationsTypes.getFeedFailure](state) {
     state.isLoading = false
@@ -42,7 +44,7 @@ const actions = {
           commit(mutationsTypes.getFeedFailure)
         })
     })
-  }
+  },
 }
 
 export default {
