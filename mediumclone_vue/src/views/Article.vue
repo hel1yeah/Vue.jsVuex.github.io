@@ -67,19 +67,18 @@ import { actionsTypes as articleActionsTypes } from '@/store/modules/article'
 import { gettersTypes as authGetterTypes } from '@/store/modules/auth'
 import { mapState, mapGetters } from 'vuex'
 
-
 export default {
   name: 'McvArticle',
   components: {
     McvErrorMessage,
     McvLoading,
-    McvTagList
+    McvTagList,
   },
   computed: {
     ...mapState({
-      isLoading: (state) => state.article.isLoading,
-      error: (state) => state.article.error,
-      article: (state) => state.article.data,
+      isLoading: state => state.article.isLoading,
+      error: state => state.article.error,
+      article: state => state.article.data,
     }),
     ...mapGetters({
       currentUser: authGetterTypes.currentUser,
@@ -98,9 +97,12 @@ export default {
   },
   methods: {
     deleteArticle() {
-      this.$store.dispatch(articleActionsTypes.deleteArticle, {
-        slug: this.$route.params.slug }).then(() => {
-          this.$router.push({name: 'globalFeed'})
+      this.$store
+        .dispatch(articleActionsTypes.deleteArticle, {
+          slug: this.$route.params.slug,
+        })
+        .then(() => {
+          this.$router.push({ name: 'globalFeed' })
         })
     },
   },
